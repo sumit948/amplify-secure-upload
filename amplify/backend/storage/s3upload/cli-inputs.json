@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3upload",
+  "policyUUID": "19191ac3",
+  "bucketName": "amplifys3upload-private",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
