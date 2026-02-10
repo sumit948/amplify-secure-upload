@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+AWS Amplify Secure File Upload Application (RBAC-enabled)
+📌 Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the frontend and AWS Amplify backend configuration for a secure, cloud-native file upload application. The solution demonstrates enterprise-grade authentication, role-based access control (RBAC), and secure file storage using AWS managed services.
 
-## Available Scripts
+The application allows authenticated users to upload and view files based on their assigned roles, with all authorization enforced through Amazon Cognito groups and IAM policies. Files are stored securely in a private Amazon S3 bucket.
 
-In the project directory, you can run:
+************************
 
-### `npm start`
+🏗️ Architecture Overview
+User (Browser)
+   ↓
+React Application
+   ↓
+AWS Amplify SDK
+   ↓
+Amazon Cognito (Authentication & Groups)
+   ↓
+IAM Roles & Policies (Authorization)
+   ↓
+Amazon S3 (Private File Storage)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Note: Application deployment and hosting are managed through AWS Amplify Console, which is connected to this GitHub repository.
 
-### `npm test`
+************************
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🔐 Security Model
+Layer	Implementation
+Authentication	Amazon Cognito User Pool
+Authorization	Cognito Groups + IAM Roles
+Access Control	Role-Based Access Control (RBAC)
+Storage	Private Amazon S3 bucket
+Validation	Client-side file type & size checks
+UI Control	Group-based feature visibility
 
-### `npm run build`
+************************
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🚀 Key Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.Secure user authentication using Amazon Cognito
+2.Role-based access control (RBAC) using Cognito groups
+3.Private file storage in Amazon S3
+4.Secure file upload using AWS Amplify Storage APIs
+5.File type and size validation before upload
+6.Listing of uploaded files based on user permissions
+7.Responsive UI built with React and Bootstrap
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+************************
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🛠️ Tech Stack
+- Frontend
+React.js
+AWS Amplify
+Bootstrap
+AWS Services
+Amazon Cognito (User Pool & Identity Pool)
+AWS IAM
+Amazon S3
+AWS Amplify (Backend & Hosting)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Tools
+GitHub
+Amplify CLI
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+************************
 
-## Learn More
+🔑 Role-Based Access Control (RBAC)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+RBAC is implemented using Amazon Cognito Groups:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Users are assigned to specific Cognito groups
+- Each group is mapped to an IAM role
+- IAM policies define permitted S3 actions (upload, list)
+- Unauthorized users are blocked at the backend via IAM
+- Frontend additionally restricts UI access for better user experience
+- This ensures least-privilege access and strong security enforcement.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+************************
 
-### Analyzing the Bundle Size
+📂 File Upload Validation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The application enforces basic client-side validation before upload:
 
-### Making a Progressive Web App
+- Maximum file size limit
+- Allowed file types (e.g., PDF, images, CSV, Excel)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This helps prevent misuse and protects backend storage.
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+************************
 
-### Deployment
+🌐 Deployment & Hosting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Deployment and hosting are handled by AWS Amplify Console:
 
-### `npm run build` fails to minify
+- This GitHub repository is connected to AWS Amplify
+- Amplify builds and hosts the React application
+- Backend resources (Cognito, IAM, S3) are managed via Amplify
+- The application is served through an Amplify-hosted URL
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+No deployment scripts are included in this repository.
+
+📁 Repository Structure (High-Level)
+/amplify        # Amplify backend configuration (auth, storage)
+/src            # React frontend source code
+/public         # Static assets
+
+************************
+
+📈 Use Cases
+
+- Secure internal document uploads
+- Enterprise file management portals
+- Role-restricted data submission systems
+- Cloud-native frontend applications with RBAC
+
+
+************************
+
+🧠 Key Learnings
+
+Implementing secure authentication with Amazon Cognito
+
+Designing RBAC using Cognito groups and IAM roles
+
+Using AWS Amplify to manage frontend and backend together
+
+Securing Amazon S3 using private access and IAM
+
+Hosting React applications using AWS Amplify Console
