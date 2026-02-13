@@ -11,12 +11,12 @@ export default function FileUpload() {
 
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
   const ALLOWED_TYPES = [
-    'application/pdf',
-    'image/png',
-    'image/jpeg',
     'text/csv',
+    'application/vnd.ms-excel',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   ];
+  // File naming convention: BUDGET_<YEAR>_<VERSION>.xlsx or .csv
+  const FILE_NAME_PATTERN = /^BUDGET_\d{4}_V\d+\.(xlsx|csv)$/;
 
   useEffect(() => {
     checkUserGroup();
@@ -48,12 +48,21 @@ export default function FileUpload() {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
+    // Validate file type
     if (!ALLOWED_TYPES.includes(selectedFile.type)) {
-      setError('File type not allowed.');
+      setError('Only CSV or Excel files are allowed.');
       setFile(null);
       return;
     }
 
+    // Validate file naming convention
+    if (!FILE_NAME_PATTERN.test(selectedFile.name)) {
+      setError('Invalid file naming convention. Expected format: BUDGET_YYYY_VX.xlsx or BUDGET_YYYY_VX.csv (e.g., BUDGET_2026_V1.xlsx)');
+      setFile(null);
+      return;
+    }
+
+    // Validate file size
     if (selectedFile.size > MAX_FILE_SIZE) {
       setError('File size must be less than 5 MB.');
       setFile(null);
@@ -106,9 +115,10 @@ export default function FileUpload() {
                   type="file"
                   className="form-control"
                   onChange={handleFileChange}
+                  accept=".csv,.xlsx"
                 />
                 <div className="form-text">
-                  Allowed: PDF, PNG, JPG, CSV, XLSX (Max 5MB)
+                  Only CSV or Excel files. Format: BUDGET_YYYY_VX.xlsx (Max 5MB)
                 </div>
               </div>
 
